@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 
                              // mongo
                              // > use mongooseExample
@@ -8,10 +10,19 @@ mongoose.connect('mongodb://localhost/mongooseExample');
 
 // MODEL: constructor function that interacts with a specific COLLECTION
 
+const catSchema = new Schema({
+  name: String,
+  age: Number,
+  color: String,
+  isFed: Boolean,
+  favoriteToys: Array,
+  birthday: Date
+});
+
 const Cat =
   mongoose.model(
-    'Cat',            // <-- NAME of the model (for mongoose to keep track of)
-    { name: String }  // <-- SCHEMA of the model (the structure that the docs will have)
+    'Cat',        // <-- NAME of the model (for mongoose to keep track of)
+    catSchema     // <-- SCHEMA of the model (the structure that the docs will have)
   );
 
 // COLLECTION:  Cat -> cats  (db.cats.find(), etc.)
@@ -22,9 +33,11 @@ const Cat =
 // CREATE (C of CRUD)
 const kitty = new Cat({
   name: 'Mr. Nibbles',
-  breed: 'nsfsfd',
-  color: 'sdfs',
-  website: 'meow.com'
+  age: 1,
+  color: 'golden',
+  isFed: true,
+  favoriteToys: [ 'shoelaces', 'chocolate' ],
+  birthday: new Date(2016, 3, 22)
 });
 
 
